@@ -16,8 +16,9 @@ const OUT_FIELDS = ["objectid", "description", "eventtype", "eventdate"];
 const FALLBACK_CENTER = [-122.2668, 37.8684];
 const FALLBACK_ZOOM = 12;
 
-const NO_TYPE = "none"; 
+const NO_TYPE = "none";
 const MIN_BOX_SIZE = 5;
+const FIRE_ZOOM = 14;
 
 const elements = {
   viewContainer: document.getElementById("viewDiv"),
@@ -85,9 +86,15 @@ async function start() {
       selectionButtons: [elements.saveButton, elements.deleteButton, elements.clearButton],
       restoreButton: elements.restoreButton,
     },
-    (objectId) => zoomToFire(view, layerView, objectId),
+    (objectId) => zoomToFire(view, layer, objectId, isDrawn(objectId)),
     (objectId) => describeFireType(fireTypes.typeOfFire.get(objectId), eventTypeLabels)
   );
+
+  // Hidden fires are never in the list - hideSelected() clears the selection - so the type filter
+  // is the only thing that can keep a listed fire off the map.
+  function isDrawn(objectId) {
+    return typeFilter.isVisible(fireTypes.typeOfFire.get(objectId));
+  }
 
   const typePanel = createTypePanel(
     {
@@ -720,16 +727,60 @@ async function showFireCount(layer) {
   }
 }
 
-async function zoomToFire(view, layerView, objectId) {
-  const { features } = await layerView.queryFeatures({
-    objectIds: [objectId],
-    returnGeometry: true,
-  });
+// layer, not layerView: a layerView only holds the features it is currently drawing, so a fire the
+// type filter has switched off - or one that is off-screen - comes back empty and nothing happens.
+// The geometry a layerView does return is quantized to the current scale, which drops the camera
+// next to the fire rather than on it. The service always answers with the full-resolution point.
+async function zoomToFire(view, layer, objectId, shownOnMap) {
+  let geometry;
 
-  const geometry = features[0]?.geometry;
+  try {
+    const { features } = await layer.queryFeatures({
+      objectIds: [objectId],
+      returnGeometry: true,
+      outSpatialReference: view.spatialReference,
+    });
 
-  if (geometry) {
-    await view.goTo({ target: geometry, zoom: Math.max(view.zoom, 14) });
+    geometry = features[0]?.geometry;
+  } catch (error) {
+    console.error(error);
+  }
+
+  if (!geometry) {
+    status.show({
+      tone: "error",
+      message: `Fire #${objectId} could not be located.`,
+      detail: "The service did not return a position for it.",
+    });
+
+    return;
+  }
+
+  try {
+    await view.goTo({ target: geometry, zoom: Math.max(view.zoom, FIRE_ZOOM) });
+  } catch (error) {
+    // A second click, or a drag, cancels the animation in flight. That is the user, not a failure.
+    if (error?.name === "AbortError") {
+      return;
+    }
+
+    console.error(error);
+
+    status.show({
+      tone: "error",
+      message: `Could not move the map to fire #${objectId}.`,
+      detail: String(error?.message ?? error),
+    });
+
+    return;
+  }
+
+  if (!shownOnMap) {
+    status.show({
+      tone: "info",
+      message: `Fire #${objectId} is here, but it is not being drawn.`,
+      detail: "Its type is unticked under Types — tick it to see the fire.",
+    });
   }
 }
 

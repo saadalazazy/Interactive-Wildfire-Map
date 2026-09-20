@@ -36,6 +36,11 @@ npm-debug.log*
 yarn-error.log*
 
 # ---------------------------------------------
+# The assessment brief - kept locally, not shipped with the deliverable
+# ---------------------------------------------
+task dev j.md
+
+# ---------------------------------------------
 # AI assistant / agent files (not part of the deliverable)
 # ---------------------------------------------
 .claude/

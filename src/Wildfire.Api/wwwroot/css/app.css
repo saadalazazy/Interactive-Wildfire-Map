@@ -18,6 +18,9 @@
 
   --panel-width: 22rem;
   --radius: 6px;
+
+  --fire-list-height: 16rem;
+  --type-list-height: 14rem;
 }
 
 * {
@@ -144,6 +147,9 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.5rem;
+
+  /* Without this the sections squash each other instead of letting the panel scroll. */
+  flex-shrink: 0;
 }
 
 .panel-heading {
@@ -186,14 +192,21 @@ body {
   display: flex;
   flex-direction: column;
   gap: 0.25rem;
-  max-height: 16rem;
+  max-height: var(--fire-list-height);
   margin: 0;
   padding: 0;
   overflow-y: auto;
   list-style: none;
 }
 
+.fire-list-item {
+  margin: 0;
+}
+
 .fire-button {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
   width: 100%;
   padding: 0.375rem 0.5rem;
   font: inherit;
@@ -209,6 +222,75 @@ body {
 
 .fire-button:hover {
   border-color: var(--blue);
+}
+
+.fire-id {
+  flex: none;
+  font-weight: 600;
+}
+
+.fire-type {
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  color: var(--text-soft);
+}
+
+.button-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.375rem;
+}
+
+.type-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.125rem;
+  max-height: var(--type-list-height);
+  overflow-y: auto;
+
+  /* Keeps the scrollbar off the counts. */
+  padding-right: 0.25rem;
+}
+
+.type-row {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  padding: 0.3125rem 0.375rem;
+  font-size: 0.8125rem;
+  cursor: pointer;
+  border-radius: var(--radius);
+}
+
+.type-row:hover {
+  background: var(--page-bg);
+}
+
+.type-row-all {
+  padding-bottom: 0.5rem;
+  font-weight: 600;
+  border-bottom: 1px solid var(--border);
+  border-radius: 0;
+}
+
+.type-name {
+  flex: 1;
+  min-width: 0;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.type-row-off .type-name {
+  color: var(--text-soft);
+}
+
+.type-count {
+  font-size: 0.75rem;
+  font-variant-numeric: tabular-nums;
+  color: var(--text-soft);
 }
 
 .button {
