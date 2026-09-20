@@ -41,26 +41,6 @@ yarn-error.log*
 task dev j.md
 
 # ---------------------------------------------
-# AI assistant / agent files (not part of the deliverable)
-# ---------------------------------------------
-.claude/
-CLAUDE.md
-CLAUDE.local.md
-.claudeignore
-AGENTS.md
-GEMINI.md
-.cursor/
-.cursorrules
-.cursorignore
-.aider*
-.continue/
-.windsurfrules
-.github/copilot-instructions.md
-.mcp.json
-.specstory/
-.codeium/
-
-# ---------------------------------------------
 # Runtime artefacts of the fire store
 # saved_fires.json itself IS a deliverable - keep it tracked.
 # ---------------------------------------------
