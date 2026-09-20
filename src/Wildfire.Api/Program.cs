@@ -53,6 +53,12 @@ if (app.Environment.IsDevelopment())
 
 app.UseCors(FrontendCorsPolicy);
 
+// Serves wwwroot: "/" hands back index.html, so the map page and the API share an origin
+// and the page's fetch() needs no absolute URL. Opening the page from Live Server or
+// file:// still works - that is what the CORS policy above is for.
+app.UseDefaultFiles();
+app.UseStaticFiles();
+
 app.MapFiresEndpoints();
 
 app.Run();

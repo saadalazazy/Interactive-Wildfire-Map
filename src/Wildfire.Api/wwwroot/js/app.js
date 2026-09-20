@@ -133,7 +133,7 @@ async function start() {
   elements.saveButton.addEventListener("click", () =>
     saveSelected(layer, selection, eventTypeLabels)
   );
-  elements.deleteButton.addEventListener("click", () => deleteSelected(selection));
+  elements.deleteButton.addEventListener("click", () => deleteSelected(view, selection));
   elements.clearButton.addEventListener("click", () => selection.clearSelection());
   elements.restoreButton.addEventListener("click", () => restoreHidden(selection));
 
@@ -567,6 +567,11 @@ function createBoxSelect({ view, layerView, selection, button, container }) {
 
     removeBox();
 
+    // No "start" was seen for this drag - box select was switched on midway through it.
+    if (!from) {
+      return;
+    }
+
     if (Math.abs(to.x - from.x) < MIN_BOX_SIZE && Math.abs(to.y - from.y) < MIN_BOX_SIZE) {
       return;
     }
@@ -671,12 +676,15 @@ async function saveSelected(layer, selection, eventTypeLabels) {
   }
 }
 
-function deleteSelected(selection) {
+function deleteSelected(view, selection) {
   const hidden = selection.hideSelected();
 
   if (hidden.length === 0) {
     return;
   }
+
+  // Otherwise a popup for a fire that is no longer drawn stays open over the map.
+  view.closePopup();
 
   status.show({
     tone: "info",

@@ -1,1 +1,70 @@
-[]
+[
+  {
+    "id": 5286211,
+    "attributes": {
+      "objectid": 5286211,
+      "description": "Fire Station NEW",
+      "eventtype": 8,
+      "eventTypeLabel": "Fire Station",
+      "eventdate": "2026-08-24T15:26:48.0000000+00:00"
+    },
+    "geometry": {
+      "x": -115.1418581,
+      "y": 36.1991758,
+      "spatialReference": {
+        "wkid": 4326
+      }
+    }
+  },
+  {
+    "id": 5286234,
+    "attributes": {
+      "objectid": 5286234,
+      "description": null,
+      "eventtype": 20,
+      "eventTypeLabel": "Safety Zone",
+      "eventdate": "1001-08-05T16:36:05.0000000+00:00"
+    },
+    "geometry": {
+      "x": -123.3519598,
+      "y": 59.5367069,
+      "spatialReference": {
+        "wkid": 4326
+      }
+    }
+  },
+  {
+    "id": 5290347,
+    "attributes": {
+      "objectid": 5290347,
+      "description": null,
+      "eventtype": 6,
+      "eventTypeLabel": "Drop Point",
+      "eventdate": "2026-09-11T10:57:29.0000000+00:00"
+    },
+    "geometry": {
+      "x": -127.6428083,
+      "y": 24.0568306,
+      "spatialReference": {
+        "wkid": 4326
+      }
+    }
+  },
+  {
+    "id": 5290348,
+    "attributes": {
+      "objectid": 5290348,
+      "description": null,
+      "eventtype": 1,
+      "eventTypeLabel": "Aerial Hazard",
+      "eventdate": null
+    },
+    "geometry": {
+      "x": -129.7525003,
+      "y": 44.7746445,
+      "spatialReference": {
+        "wkid": 4326
+      }
+    }
+  }
+]

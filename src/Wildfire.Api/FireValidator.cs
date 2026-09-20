@@ -24,6 +24,10 @@ public static class FireValidator
         CheckIds(fire, errors);
         CheckGeometry(fire.Geometry, errors);
 
+        // 'attributes.eventdate' is deliberately unchecked: the layer leaves it null on plenty of
+        // records, so it is optional, and EventDateConverter already rejects anything that is not
+        // a date. Any range rule beyond that would throw out legitimate rows.
+
         return errors;
     }
 

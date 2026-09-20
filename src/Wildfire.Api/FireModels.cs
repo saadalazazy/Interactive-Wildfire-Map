@@ -26,6 +26,12 @@ public sealed record FireAttributes
 
     [JsonPropertyName("eventTypeLabel")]
     public string? EventTypeLabel { get; init; }
+
+    // The attribute puts the converter on the property itself, so it applies to both the
+    // ASP.NET Core pipeline and FireStore's own serializer options.
+    [JsonPropertyName("eventdate")]
+    [JsonConverter(typeof(EventDateConverter))]
+    public DateTimeOffset? EventDate { get; init; }
 }
 
 public sealed record PointGeometry

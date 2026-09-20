@@ -1,7 +1,17 @@
 
 import { webMercatorToGeographic } from "https://js.arcgis.com/4.34/@arcgis/core/geometry/support/webMercatorUtils.js";
 
-const API_BASE_URL = "";
+const API_ORIGINS = ["https://localhost:7042", "http://localhost:5299"];
+
+function resolveApiBaseUrl() {
+  if (typeof window.WILDFIRE_API_ORIGIN === "string") {
+    return window.WILDFIRE_API_ORIGIN.replace(/\/+$/, "");
+  }
+
+  return API_ORIGINS.includes(window.location.origin) ? "" : API_ORIGINS[0];
+}
+
+const API_BASE_URL = resolveApiBaseUrl();
 const SAVE_FIRES_ENDPOINT = `${API_BASE_URL}/api/fires`;
 
 const COORDINATE_DECIMALS = 7;
