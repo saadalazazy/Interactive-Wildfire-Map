@@ -1,3 +1,0 @@
-﻿<Project>
-  <Import Project="..\build\Wildfire.Api.props" />
-</Project>

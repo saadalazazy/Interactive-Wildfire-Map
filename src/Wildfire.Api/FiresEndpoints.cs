@@ -6,8 +6,17 @@ public static class FiresEndpoints
     {
         var fires = routes.MapGroup("/api/fires").WithTags("Fires");
 
-        fires.MapPost("/", SaveFires);
-        fires.MapGet("/", GetFires);
+        // An empty pattern keeps the route at "/api/fires"; "/" would register "/api/fires/".
+        fires.MapPost("", SaveFires)
+             .WithName("SaveFires")
+             .WithSummary("Saves the features selected on the map into saved_fires.json.")
+             .Produces<SaveResult>()
+             .ProducesValidationProblem();
+
+        fires.MapGet("", GetFires)
+             .WithName("GetFires")
+             .WithSummary("Returns everything currently stored in saved_fires.json.")
+             .Produces<IReadOnlyList<FireFeature>>();
     }
 
     private static IResult SaveFires(List<FireFeature>? fires, FireStore store)

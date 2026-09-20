@@ -26,9 +26,6 @@ public sealed record FireAttributes
 
     [JsonPropertyName("eventTypeLabel")]
     public string? EventTypeLabel { get; init; }
-
-    [JsonPropertyName("eventdate")]
-    public DateTimeOffset? EventDate { get; init; }
 }
 
 public sealed record PointGeometry

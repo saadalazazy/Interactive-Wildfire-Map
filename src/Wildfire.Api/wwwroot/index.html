@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Wildfire Response Points</title>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.34/esri/themes/light/main.css" />
+
+    <link rel="stylesheet" href="css/app.css" />
+  </head>
+
+  <body>
+    <div class="app">
+      <header class="header">
+        <h1 class="title">Wildfire Response Points</h1>
+        <p class="subtitle">
+          ArcGIS Wildfire FeatureServer, layer 0 &middot;
+          <span id="featureTotal">&hellip;</span> features &middot; stored in EPSG:3857, saved as
+          EPSG:4326
+        </p>
+      </header>
+
+      <main class="content">
+        <div class="map-area" id="mapArea">
+          <div id="viewDiv" class="map" role="application" aria-label="Wildfire response points map"></div>
+          <div class="map-tools">
+            <button type="button" class="tool-button" id="boxSelect" aria-pressed="false">
+              Box select
+            </button>
+            <button type="button" class="tool-button" id="selectAllShown">
+              Select all shown
+            </button>
+          </div>
+        </div>
+
+        <aside class="panel" aria-label="Selection and filters">
+          <section class="panel-section">
+            <h2 class="panel-heading">
+              Selected <span class="badge" id="selectedCount">0</span>
+            </h2>
+            <p class="hint">
+              Click a fire to select it, click again to deselect. To take several at once, turn on
+              <strong>Box select</strong> and drag a rectangle over them.
+            </p>
+
+            <ul class="fire-list" id="selectionList" hidden></ul>
+
+            <div class="button-row">
+              <button type="button" class="button button-primary" id="saveSelected" disabled>
+                Save Selected
+              </button>
+              <button type="button" class="button button-danger" id="deleteSelected" disabled>
+                Delete Selected
+              </button>
+              <button type="button" class="button" id="clearSelection" disabled>
+                Clear Selection
+              </button>
+            </div>
+          </section>
+
+          <section class="panel-section">
+            <h2 class="panel-heading">Types</h2>
+
+            <p class="hint">
+              <strong id="shownCount">&hellip;</strong> of <strong id="shownTotal">&hellip;</strong>
+              fires on the map.
+            </p>
+
+            <label class="type-row type-row-all">
+              <input type="checkbox" id="allTypes" checked />
+              <span class="type-name">All types</span>
+            </label>
+
+            <div class="type-list" id="typeList"></div>
+          </section>
+
+          <section class="panel-section notice" id="hiddenNotice" hidden>
+            <p class="hint">
+              <strong id="hiddenCount">0</strong> removed from the display. They remain on the
+              FeatureServer &mdash; nothing was deleted from the source.
+            </p>
+            <button type="button" class="button button-small" id="restoreHidden" disabled>
+              Restore to map
+            </button>
+          </section>
+        </aside>
+      </main>
+
+      <div class="status" id="status" role="status" aria-live="polite" hidden></div>
+    </div>
+
+  </body>
+</html>

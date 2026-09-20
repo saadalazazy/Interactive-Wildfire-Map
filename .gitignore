@@ -1,0 +1,71 @@
+# ---------------------------------------------
+# .NET build output
+# ---------------------------------------------
+bin/
+obj/
+[Dd]ebug/
+[Rr]elease/
+x64/
+x86/
+*.dll
+*.exe
+*.pdb
+*.cache
+*.user
+*.userosscache
+*.suo
+*.nupkg
+project.lock.json
+project.assets.json
+
+# ---------------------------------------------
+# Visual Studio / Rider / VS Code
+# ---------------------------------------------
+.vs/
+.vscode/
+.idea/
+*.sln.docstates
+*.DotSettings.user
+
+# ---------------------------------------------
+# Node / frontend tooling (for the upcoming UI)
+# ---------------------------------------------
+node_modules/
+dist/
+npm-debug.log*
+yarn-error.log*
+
+# ---------------------------------------------
+# AI assistant / agent files (not part of the deliverable)
+# ---------------------------------------------
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+.claudeignore
+AGENTS.md
+GEMINI.md
+.cursor/
+.cursorrules
+.cursorignore
+.aider*
+.continue/
+.windsurfrules
+.github/copilot-instructions.md
+.mcp.json
+.specstory/
+.codeium/
+
+# ---------------------------------------------
+# Runtime artefacts of the fire store
+# saved_fires.json itself IS a deliverable - keep it tracked.
+# ---------------------------------------------
+*.tmp
+saved_fires.json.corrupt-*
+
+# ---------------------------------------------
+# OS noise
+# ---------------------------------------------
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.DS_Store
